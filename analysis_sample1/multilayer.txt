@@ -1,0 +1,6 @@
+## multilayer datafile for emf_multilayer 
+# number of layers except incident field layer
+2
+# z_j real(n_j) imag(n_j)
+0.000 0.0666 4.045
+0.054 1.0000 0.000
