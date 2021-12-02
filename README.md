@@ -37,7 +37,8 @@ The own developed numerical solution is used. Libpng is required.
    Each image file has a name that indicates the cross section, field component and number of time steps (ex. xz_Ex_014.png). 
    The color bar is output as color_bar.png in the same folder. 
    The range of color bar in each cross section is output to the info.txt file (xy_info.txt for x-y plane). 
-   The xz_Ex.gif, yz_Ex.gif etc. are animated gifs that concatenate the png files, created by using the shell script  gif_animation.sh.  
+   The xz_Ex.gif, yz_Ex.gif etc. are animated gifs that concatenate the png files, created by using the shell script  gif_animation.sh. 
+   The example3.out is parallelized using OpenMP. The number of threads is controlled by the environment variable OMP_NUM_THREADS.  
    
 5. type './verification.out' with arguments of incident field datafile name and multilayer datafile name.  
    For example, './example2.out ipw.txt multilayer.txt'. The datafiles are the same as example1.out. 
