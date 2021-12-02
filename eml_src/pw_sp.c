@@ -10,16 +10,53 @@ void read_data_pwsp(char *fname,Pwsp *pw)
     printf("failed to read %s. Exit...\n",fname);
     exit(1);
   }  
-  fgets(buf,256,fp);  fgets(buf,256,fp);
+  if(fgets(buf,256,fp)==NULL){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the line. exit...\n");
+    exit(1);
+  }
   
-  fscanf(fp,"%lf",&td1);  pw->lambda0=td1;
-  fscanf(fp,"%lf",&td1);  pw->n=td1;    
-  fscanf(fp,"%lf",&td1);
-  fscanf(fp,"%lf",&td2);  pw->ep=td1+I*td2;
-  fscanf(fp,"%lf",&td1);
-  fscanf(fp,"%lf",&td2);  pw->es=td1+I*td2; 
-  fscanf(fp,"%lf",&td1);  pw->theta=td1;
-  fscanf(fp,"%lf",&td1);  pw->phi=td1;
+  if(fscanf(fp,"%lf",&td1)!=1){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the lambda0. exit...\n");
+    exit(1);
+  }
+  pw->lambda0=td1;
+  if(fscanf(fp,"%lf",&td1)!=1){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the n. exit...\n");
+    exit(1);
+  }
+  pw->n=td1;
+  if(fscanf(fp,"%lf",&td1)!=1){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the real(ep). exit...\n");
+    exit(1);
+  }
+  if(fscanf(fp,"%lf",&td2)!=1){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the imag(ep). exit...\n");
+    exit(1);
+  }
+  pw->ep=td1+I*td2;
+  if(fscanf(fp,"%lf",&td1)!=1){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the real(es). exit...\n");
+    exit(1);
+  }
+  if(fscanf(fp,"%lf",&td2)!=1){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the imag(es). exit...\n");
+    exit(1);  
+  }
+  pw->es=td1+I*td2; 
+  if(fscanf(fp,"%lf",&td1)!=1){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the theta. exit...\n");
+    exit(1);
+  }
+  pw->theta=td1;
+  if(fscanf(fp,"%lf",&td1)!=1){
+    printf("pw_sp.c, read_data_pwsp(), failed to read the phi. exit...\n");
+    exit(1);
+  }
+  pw->phi=td1;
   
   fclose(fp);
 }

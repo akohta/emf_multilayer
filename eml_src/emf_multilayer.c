@@ -280,16 +280,41 @@ void read_data_ml(char *fname_ml,Mlpw *md)
   int ti,i;
   
   if((fp=fopen(fname_ml,"rt"))==NULL){    printf("Can not open the '%s' file. Exit...\n",fname_ml);    exit(1);  }
-  fgets(buf,256,fp);  fgets(buf,256,fp);
+  if(fgets(buf,256,fp)==NULL){
+    printf("emf_multilayer.c, read_data_ml(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("emf_multilayer.c, read_data_ml(), failed to read the line. exit...\n");
+    exit(1);
+  }
   
-  fscanf(fp,"%d\n",&ti);    md->No=ti;
-  fgets(buf,256,fp);
+  if(fscanf(fp,"%d\n",&ti)!=1){
+    printf("emf_multilayer.c, read_data_ml(), failed to read the No. exit...\n");
+    exit(1);
+  }
+  md->No=ti;
+  if(fgets(buf,256,fp)==NULL){
+    printf("emf_multilayer.c, read_data_ml(), failed to read the line. exit...\n");
+    exit(1);
+  }
 
   malloc_ml(md);
   for(i=1;i<=ti;i++){
-    fscanf(fp,"%lf\n",&td1);    md->zj[i]=td1;
-    fscanf(fp,"%lf\n",&td1);    
-    fscanf(fp,"%lf\n",&td2);    md->nj[i]=td1+I*td2;
+    if(fscanf(fp,"%lf\n",&td1)!=1){
+      printf("emf_multilayer.c, read_data_ml(), failed to read the zj. exit...\n");
+      exit(1);
+    }
+    md->zj[i]=td1;
+    if(fscanf(fp,"%lf\n",&td1)!=1){
+      printf("emf_multilayer.c, read_data_ml(), failed to read the real(nj). exit...\n");
+      exit(1);
+    }
+    if(fscanf(fp,"%lf\n",&td2)!=1){
+      printf("emf_multilayer.c, read_data_ml(), failed to read the imag(nj). exit...\n");
+      exit(1);
+    }
+    md->nj[i]=td1+I*td2;
   }
   
   fclose(fp);

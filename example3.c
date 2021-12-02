@@ -1,5 +1,6 @@
 // Analysis example of electromagnetic field instantaneous value.
 #include "emf_multilayer.h"
+#include <string.h>
 #include <sys/stat.h>
 #include <errno.h>  
 #include <png.h>
@@ -49,7 +50,11 @@ int main(int argc,char *argv[])
   //print_data_mlpw_mksa(&ml);            // print data in MKSA system of units
   setup_mlpw(&ml);                        // calculation of coefficients
 
-  sprintf(id.dir_name,argv[3]);  // directory name to output image
+  if(strlen(argv[3])<64) strcpy(id.dir_name,argv[3]);  // directory name to output image
+  else {
+    printf("directory name is too long. it can be up to 64 characters. exit...\n");
+    exit(1);
+  }
   id.scale=1;                    // number for enlarge the output image
   id.m=200;                      // sampling number 
   id.rang=2.0;                   // range of sampling
